@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-08 18:27:29
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-11 18:49:24
+ * @LastEditTime: 2022-10-17 13:09:18
  * @FilePath: /study/demo/imooc-nuxt-project/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -31,6 +31,8 @@
         条件渲染
 
 [视频]
-    2-4
+    3-3
     
     nvm 安装（先不安装，本地有 n）
+
+[资料]（https://www.imooc.com/wiki/SSR/a2.html）
