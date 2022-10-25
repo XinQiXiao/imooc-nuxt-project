@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-17 13:12:51
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-24 18:37:51
+ * @LastEditTime: 2022-10-25 13:25:45
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/vite.config.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -37,5 +37,16 @@ export default defineConfig({
       }
     }
   },
+  server: {
+    host: 'localhost',
+      port: 3000,
+        proxy: {
+          '/release': {
+            target: 'https://service-ase3oocp-1302839645.sh.apigw.tencentcs.com',
+            changeOrigin: true,
+            rewrite: path => path.replace(/^\/release/, '')
+          }
+        }
+  }
 })
 

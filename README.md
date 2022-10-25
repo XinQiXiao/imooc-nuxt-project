@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-08 18:27:29
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-24 18:30:53
+ * @LastEditTime: 2022-10-25 13:54:50
  * @FilePath: /study/demo/imooc-nuxt-project/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -31,7 +31,7 @@
         条件渲染
 
 [视频]
-    3-6
+    4-1
     
     nvm 安装（先不安装，本地有 n）
 
@@ -64,6 +64,31 @@ plugins: [
     npx eslint --init
 
     sass 安装
+    npm install sass -D
+    配置
+css: {
+// css 预处理 路径最后要加上；不然会报错
+preprocessorOptions: {
+    scss: {
+    additionalData: '@import "@/assets/scss/main.scss";'
+    }
+}
+},
 
+    axios 安装
+    npm install axios --save
+    axios 跨域配置，路径配置
+    vite.config.ts
+server: {
+host: 'localhost',
+    port: 3000,
+    proxy: {
+        '/release': {
+        target: 'https://service-ase3oocp-1302839645.sh.apigw.tencentcs.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/release/, '')
+        }
+    }
+}
 
 [资料]（https://www.imooc.com/wiki/SSR/a2.html）
