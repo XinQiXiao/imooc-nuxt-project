@@ -2,17 +2,19 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-24 16:10:43
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-25 13:52:12
+ * @LastEditTime: 2022-10-26 13:35:29
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/views/home/home.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <script setup lang="ts">
 import { useRoute, useRouter, } from 'vue-router';
-import { h, getCurrentInstance, } from 'vue';
-import { fetchDemo } from '@/api/api'
+import { h, getCurrentInstance, ref, } from 'vue';
+import { fetchDemo } from '../../api/api'
 
 const router = useRouter();
 const route = useRoute();
+
+const value1 = ref('')
 
 // console.log('home route.params=>', route.params);
 
@@ -27,7 +29,7 @@ proxy.$message({
 const getRoomList = async ()=>{
     try {
         const ret = await fetchDemo();
-        console.log('getRoomList ret=>', ret)
+        // console.log('getRoomList ret=>', ret)
     } catch (e) {
         console.log('getRoomList e=>', e)
     }
@@ -42,6 +44,12 @@ getRoomList();
         首页
         <button @click="()=> router.push({ path: '/mine', query: { id: 1} })">跳转个人中心</button>
         <el-button>Default</el-button>
+        <el-date-picker
+            v-model="value1"
+            type="date"
+            placeholder="Pick a day"
+            size="small"
+        />
     </div>
 </template>
 
@@ -51,7 +59,6 @@ getRoomList();
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 200px;
-        height: 100px;
+        padding: 20px;
     }
 </style>

@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-08 18:27:29
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-25 13:54:50
+ * @LastEditTime: 2022-10-26 14:05:39
  * @FilePath: /study/demo/imooc-nuxt-project/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -31,7 +31,8 @@
         条件渲染
 
 [视频]
-    4-1
+[资料]（https://www.imooc.com/wiki/SSR/a2.html）
+    5-1
     
     nvm 安装（先不安装，本地有 n）
 
@@ -91,4 +92,8 @@ host: 'localhost',
     }
 }
 
-[资料]（https://www.imooc.com/wiki/SSR/a2.html）
+    国际化
+    element-plus 配置 el-config-provider
+    vue-i18n
+    安装： npm install vue-i18n@next --save
+    (9.2.0-beta.25 需要这个版本，其他版本会报错)
