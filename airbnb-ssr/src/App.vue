@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-17 13:12:51
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-26 14:04:40
+ * @LastEditTime: 2022-10-27 14:00:48
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -21,7 +21,7 @@ const router = useRouter()
 
 const { locale: localeLanguage } = useI18n()
 localeLanguage.value = 'zh-cn'
-const locale = ref(zhCn)
+const elementLocale = ref(zhCn)
 
 const { t } = useI18n()
 
@@ -29,7 +29,7 @@ const changeLang = (language: any) => {
   // console.log('changeLang language=>', language)
   // const s = t('message.chinese')
   // console.log('changeLang s=>', s)
-  locale.value = language
+  elementLocale.value = language
   localeLanguage.value = language.name
 }
 
@@ -39,7 +39,7 @@ const changeLang = (language: any) => {
 </script>
 
 <template>
-  <el-config-provider :locale="locale">
+  <el-config-provider :locale="elementLocale">
     <router-view></router-view>
     <button @click="changeLang(zhCn)">{{t('message.chinese')}}</button>
     <button @click="changeLang(en)">{{t('message.english')}}</button>
