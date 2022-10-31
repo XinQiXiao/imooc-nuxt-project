@@ -2,14 +2,14 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-24 16:10:43
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-28 14:33:11
+ * @LastEditTime: 2022-10-31 16:30:36
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/views/home/home.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <script setup lang="ts">
 import { useRoute, useRouter, } from 'vue-router'
 import { h, getCurrentInstance, ref, } from 'vue'
-import { fetchDemo } from '../../api/api'
+import { fetchDemo, fetchElephant, } from '../../api/api'
 // home.vue
 import IndexedDB from '../../utils/indexedDB'
 import airbnbDB from '../../utils/indexedDB'
@@ -71,10 +71,8 @@ async function dbEditClick () {
 }
 async function dbListClick () {
 	try {
-		await airbnbDBInstance.openStore('elephant', 'id', ['nose', 'ear'])
-		airbnbDBInstance.getList(
-			'elephant'
-		)
+		const ret = await fetchElephant()
+		console.log('ret=>', ret)
 	} catch (e) {
 		console.log('dbEditClick e=>', e)
 	}
