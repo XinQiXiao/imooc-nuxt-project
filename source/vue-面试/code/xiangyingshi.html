@@ -1,0 +1,61 @@
+<!--
+ * @Author: qixin qixin2@delant.com.cn
+ * @Date: 2022-11-02 14:04:11
+ * @LastEditors: qixin qixin2@delant.com.cn
+ * @LastEditTime: 2022-11-02 14:56:23
+ * @FilePath: /imooc-nuxt-project/source/vue-面试/code/xiangyingshi.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue响应式原理</title>
+</head>
+<body>
+    <input type="text" id="userName">
+    绑定了 userName: <span id="showUserName"></span>
+    <script>
+        // 1.vue2 响应式原理
+        // let data = {}
+        // Object.defineProperty(data, 'userName', {
+        //     get(){
+        //         console.log('get methods')
+        //         return this._userName
+        //     },
+        //     set(newValue){
+        //         console.log('set methods')
+        //         this._userName = newValue 
+        //         document.getElementById('showUserName').innerHTML = newValue
+        //         document.getElementById('userName').value = newValue
+        //     }
+        // })
+        // document.getElementById('userName').oninput = function(){
+        //     data.userName = this.value
+        // }
+        // data.userName = 'Li Lei'
+        // console.log('data.userName=>', data.userName)
+        // data.test = 'test'
+        // console.log('data.test=>', data.test)
+        
+
+        // 2.vue3 响应式原理
+        let proxy = new Proxy({}, {
+            get(target, key){
+                console.log('proxy get target=>', target, ' key=>', key)
+                return target[key]
+            },
+            set(target, key, value){
+                console.log('proxy set target=>', target, ' key=>', key, ' value=>', value)
+                target[key] = value 
+                // document.getElementById('showUserName').innerHTML = value 
+                // document.getElementById('userName').value = value
+            }
+        })
+        proxy.userName = '张三'
+        proxy.test = '测试'
+    </script>
+</body>
+</html>
