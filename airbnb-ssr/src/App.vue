@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-17 13:12:51
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-03 13:53:12
+ * @LastEditTime: 2022-11-03 15:56:07
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -14,7 +14,7 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-// import en from 'element-plus/lib/locale/lang/en'
+import en from 'element-plus/lib/locale/lang/en'
 import headerComponent from './components/layout/headerCommon.vue'
 
 // const router = useRouter()
@@ -23,28 +23,38 @@ const { locale: localeLanguage } = useI18n()
 localeLanguage.value = 'zh-cn'
 const elementLocale = ref(zhCn)
 
-// const { t } = useI18n()
+const { t } = useI18n()
 
-// const changeLang = (language: any) => {
-//   // console.log('changeLang language=>', language)
-//   // const s = t('message.chinese')
-//   // console.log('changeLang s=>', s)
-//   elementLocale.value = language
-//   localeLanguage.value = language.name
-// }
+const changeLang = (language: any) => {
+  console.log('changeLang language=>', language)
+  let curLan = zhCn
+  if(language == 'en'){
+    curLan = en
+  } else {
+    curLan = zhCn
+  }
+  // console.log('changeLang curLan=>', curLan)
+  // const s = t('message.chinese')
+  // console.log('changeLang s=>', s)
+  elementLocale.value = curLan
+  // console.log('changeLang elementLocale=>', elementLocale)
+  localeLanguage.value = curLan.name
+  // console.log('changeLang localeLanguage=>', localeLanguage)
+  // const s = t('message.home')
+  // console.log('s=>', s)
+}
 
-// const s = t('message.chinese')
-// console.log('s=>', s)
+
 
 </script>
 
 <template>
   <el-config-provider :locale="elementLocale">
-    <headerComponent />
+    <headerComponent @changeLang="changeLang"/>
     <router-view></router-view>
-    <!-- <button @click="changeLang(zhCn)">{{t('message.chinese')}}</button>
-    <button @click="changeLang(en)">{{t('message.english')}}</button>
-    <button @click="()=> {router.push({path: '/home'})}">首页</button>
+    <!-- <button @click="changeLang(zhCn)">{{t('message.chinese')}}</button> -->
+    <!-- <button @click="changeLang(en)">{{t('message.english')}}</button> -->
+    <!-- <button @click="()=> {router.push({path: '/home'})}">首页</button>
     <button @click="()=> {router.push({path: '/mine'})}">个人中心</button> -->
   </el-config-provider>
 </template>
