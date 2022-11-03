@@ -2,11 +2,14 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-08 18:27:29
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-31 16:40:06
+ * @LastEditTime: 2022-11-03 14:42:14
  * @FilePath: /study/demo/imooc-nuxt-project/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 ### 资料
+[imooc 项目地址]
+（http://110.42.184.111）
+
 [TypeScript]
 (http://ts.xcatliu.com/introduction/index.html)
 
@@ -32,7 +35,7 @@
 
 [视频]
 [资料]（https://www.imooc.com/wiki/SSR/a2.html）
-    code 6-2 https://www.imooc.com/wiki/SSR/e2.html
+    code 7-2 
     
     nvm 安装（先不安装，本地有 n）
 
