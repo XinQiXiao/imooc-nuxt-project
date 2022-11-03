@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-27 14:11:46
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-31 13:24:41
+ * @LastEditTime: 2022-11-03 18:54:27
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/utils/indexedDB.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -103,6 +103,8 @@ export default class DB {
   }
 
   public getItem(storeName: string, key: number | string) {
+    console.log('getItem storeName=>', storeName, ' key=>', key)
+    console.log('getItem db=>', this.db)
     const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
     const request = store.get(key)
     return new Promise((resolve, reject) => {

@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-03 13:36:11
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-03 15:58:31
+ * @LastEditTime: 2022-11-03 18:57:55
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/components/layout/headerCommon.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,6 +10,9 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import en from 'element-plus/lib/locale/lang/en'
+import { fetchLanguageApi, saveLanguageApi, } from '../../api/layout'
 
 const { t, locale: localeLanguage } = useI18n()
 const router = useRouter()
@@ -22,9 +25,21 @@ const emit = defineEmits<{
 function handleSelect(e: any){
   console.log('handleSelect e=>', e)
   if(e === 'zh'){
-    emit('changeLang', 'zhCn')
+    emit('changeLang', zhCn)
+    saveLanguage(zhCn.name)
   } else if(e === 'en'){
-    emit('changeLang', 'en')
+    emit('changeLang', en)
+    saveLanguage(en.name)
+  }
+}
+
+// Mock接口：保存当前语言包
+async function saveLanguage(language: any){
+  try {
+    const ret = await saveLanguageApi(language)
+    console.log('saveLanguage ret=>', ret)
+  } catch (e) {
+    console.log('saveLanguage e=>', e)
   }
 }
 </script>
