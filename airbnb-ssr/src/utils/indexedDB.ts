@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-27 14:11:46
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-03 18:54:27
+ * @LastEditTime: 2022-11-04 11:06:53
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/utils/indexedDB.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,9 +18,9 @@ export default class DB {
     return new Promise((resolve, reject)=>{
       const request = window.indexedDB.open(this.dbName, 2)
       request.onsuccess = (event: any) => {
-        console.log('数据库打开成功')
+        // console.log('数据库打开成功')
         this.db = event.target.result
-        console.log('openStore onsuccess event=>', event)
+        // console.log('openStore onsuccess event=>', event)
         return resolve(true)
       }
       request.onerror = (event) => {
@@ -29,7 +29,7 @@ export default class DB {
         return reject(false)
       }
       request.onupgradeneeded = (event) => {
-        console.log('数据库升级成功')
+        // console.log('数据库升级成功')
         const { result }: any = event.target
         const store = result.createObjectStore(storeName, { autoIncrement: true, keyPath })
         if (indexs && indexs.length > 0) {
@@ -38,16 +38,16 @@ export default class DB {
           })
         }
         store.transaction.oncomplete = (event: any) => {
-          console.log('创建对象仓库成功')
+          // console.log('创建对象仓库成功')
         }
-        console.log('onupgradeneeded event=>', event)
+        // console.log('onupgradeneeded event=>', event)
         return resolve(true)
       }
     })
   }
 
   public updateItem(storeName: string, data: any) {
-    console.log('updateItem db=>', this.db)
+    // console.log('updateItem db=>', this.db)
     const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
     const request = store.put({
       ...data,
@@ -55,8 +55,8 @@ export default class DB {
     })
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        console.log('数据写入成功')
-        console.log('updateItem onsuccess event=>', event)
+        // console.log('数据写入成功')
+        // console.log('updateItem onsuccess event=>', event)
         return resolve(event)
       }
       request.onerror = (event: any) => {
@@ -73,8 +73,8 @@ export default class DB {
     const request = store.delete(key)
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        console.log('数据删除成功')
-        console.log('deleteItem onsuccess event=>', event)
+        // console.log('数据删除成功')
+        // console.log('deleteItem onsuccess event=>', event)
         return resolve(event)
       }
       request.onerror = (event: any) => {
@@ -90,8 +90,8 @@ export default class DB {
     const request = store.getAll()
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        console.log('查询所有数据成功')
-        console.log('getList onsuccess result=>', event.target.result)
+        // console.log('查询所有数据成功')
+        // console.log('getList onsuccess result=>', event.target.result)
         return resolve(event.target.result)
       }
       request.onerror = (event: any) => {
@@ -103,14 +103,14 @@ export default class DB {
   }
 
   public getItem(storeName: string, key: number | string) {
-    console.log('getItem storeName=>', storeName, ' key=>', key)
-    console.log('getItem db=>', this.db)
+    // console.log('getItem storeName=>', storeName, ' key=>', key)
+    // console.log('getItem db=>', this.db)
     const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
     const request = store.get(key)
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        console.log('查询某一条数据成功')
-        console.log('getItem onsuccess result=>', event.target.result)
+        // console.log('查询某一条数据成功')
+        // console.log('getItem onsuccess result=>', event.target.result)
         return resolve(event.target.result)
       }
       request.onerror = (event: any) => {

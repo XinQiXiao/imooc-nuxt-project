@@ -2,12 +2,12 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-03 13:36:11
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-03 18:57:55
+ * @LastEditTime: 2022-11-04 11:09:13
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/components/layout/headerCommon.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
@@ -42,6 +42,28 @@ async function saveLanguage(language: any){
     console.log('saveLanguage e=>', e)
   }
 }
+async function getLanguage(){
+  try {
+    const ret = await fetchLanguageApi()
+    console.log('getLanguage ret=>', ret)
+    if(ret && ret.success){
+      if(ret.result && ret.result.name){
+        if(ret.result.name === 'zh'){
+          emit('changeLang', zhCn)
+        } else if(ret.result.name === 'en'){
+          emit('changeLang', en)
+        }
+      }
+    }
+    
+  } catch (e) {
+    console.log('getLanguage e=>', e)
+  }
+}
+
+onMounted(()=>{
+  getLanguage()
+})
 </script>
 
 <template>
