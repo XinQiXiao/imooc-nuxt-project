@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-03 13:36:11
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-04 11:09:13
+ * @LastEditTime: 2022-11-04 15:26:45
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/components/layout/headerCommon.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -23,7 +23,7 @@ const emit = defineEmits<{
   (e: 'changeLang', language: any): void
 }>()
 function handleSelect(e: any){
-  console.log('handleSelect e=>', e)
+  // console.log('handleSelect e=>', e)
   if(e === 'zh'){
     emit('changeLang', zhCn)
     saveLanguage(zhCn.name)
@@ -37,7 +37,7 @@ function handleSelect(e: any){
 async function saveLanguage(language: any){
   try {
     const ret = await saveLanguageApi(language)
-    console.log('saveLanguage ret=>', ret)
+    // console.log('saveLanguage ret=>', ret)
   } catch (e) {
     console.log('saveLanguage e=>', e)
   }
@@ -45,7 +45,7 @@ async function saveLanguage(language: any){
 async function getLanguage(){
   try {
     const ret = await fetchLanguageApi()
-    console.log('getLanguage ret=>', ret)
+    // console.log('getLanguage ret=>', ret)
     if(ret && ret.success){
       if(ret.result && ret.result.name){
         if(ret.result.name === 'zh'){
@@ -82,9 +82,9 @@ onMounted(()=>{
       @select="handleSelect"
     >
       <el-menu-item index="orders">{{t('header.orders')}}</el-menu-item>
-      <el-menu-item index="records">{{'历史足迹'}}</el-menu-item>
+      <el-menu-item index="records">{{t('header.records')}}</el-menu-item>
       <el-sub-menu index="language">
-        <template #title>{{'语言'}}</template>
+        <template #title>{{t('header.language')}}</template>
         <el-menu-item index="zh">中文</el-menu-item>
         <el-menu-item index="en">English</el-menu-item>
       </el-sub-menu>

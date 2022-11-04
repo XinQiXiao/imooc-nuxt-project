@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-17 13:12:51
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-04 13:51:04
+ * @LastEditTime: 2022-11-04 15:33:11
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -27,7 +27,7 @@ const elementLocale = ref(zhCn)
 const { t } = useI18n()
 
 const changeLang = (language: any) => {
-  console.log('changeLang language=>', language)
+  // console.log('changeLang language=>', language)
   
   // console.log('changeLang curLan=>', curLan)
   // const s = t('message.chinese')
@@ -47,8 +47,10 @@ const changeLang = (language: any) => {
 <template>
   <el-config-provider :locale="elementLocale">
     <HeaderComponent @changeLang="changeLang"/>
+    <div class="container">
+      <router-view></router-view>
+    </div>
     <FooterComponent />
-    <router-view></router-view>
     <!-- <button @click="changeLang(zhCn)">{{t('message.chinese')}}</button> -->
     <!-- <button @click="changeLang(en)">{{t('message.english')}}</button> -->
     <!-- <button @click="()=> {router.push({path: '/home'})}">首页</button>
@@ -56,6 +58,10 @@ const changeLang = (language: any) => {
   </el-config-provider>
 </template>
 
-<style scoped>
-
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 </style>
