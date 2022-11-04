@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-17 13:12:51
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-03 18:04:58
+ * @LastEditTime: 2022-11-04 13:51:04
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -15,7 +15,8 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 // import en from 'element-plus/lib/locale/lang/en'
-import headerComponent from './components/layout/headerCommon.vue'
+import HeaderComponent from './components/layout/headerCommon.vue'
+import FooterComponent from './components/layout/footerCommon.vue'
 
 // const router = useRouter()
 
@@ -45,7 +46,8 @@ const changeLang = (language: any) => {
 
 <template>
   <el-config-provider :locale="elementLocale">
-    <headerComponent @changeLang="changeLang"/>
+    <HeaderComponent @changeLang="changeLang"/>
+    <FooterComponent />
     <router-view></router-view>
     <!-- <button @click="changeLang(zhCn)">{{t('message.chinese')}}</button> -->
     <!-- <button @click="changeLang(en)">{{t('message.english')}}</button> -->
