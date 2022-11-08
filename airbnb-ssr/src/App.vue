@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-17 13:12:51
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-04 15:33:11
+ * @LastEditTime: 2022-11-08 13:32:56
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,7 +10,7 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
-// import { useRouter } from 'vue-router'
+import { useRouter, useRoute, } from 'vue-router'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
@@ -18,7 +18,10 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import HeaderComponent from './components/layout/headerCommon.vue'
 import FooterComponent from './components/layout/footerCommon.vue'
 
-// const router = useRouter()
+const router = useRouter()
+// console.log('App.vue router=>', router)
+const route = useRoute()
+// console.log('App.vue route=>', route)
 
 const { locale: localeLanguage } = useI18n()
 localeLanguage.value = 'zh-cn'
@@ -40,17 +43,15 @@ const changeLang = (language: any) => {
   // console.log('s=>', s)
 }
 
-
-
 </script>
 
 <template>
   <el-config-provider :locale="elementLocale">
-    <HeaderComponent @changeLang="changeLang"/>
+    <HeaderComponent v-show="route.fullPath.indexOf('login')==-1" @changeLang="changeLang"/>
     <div class="container">
       <router-view></router-view>
     </div>
-    <FooterComponent />
+    <FooterComponent v-show="route.fullPath.indexOf('login')==-1"/>
     <!-- <button @click="changeLang(zhCn)">{{t('message.chinese')}}</button> -->
     <!-- <button @click="changeLang(en)">{{t('message.english')}}</button> -->
     <!-- <button @click="()=> {router.push({path: '/home'})}">首页</button>
