@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-26 13:42:42
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-04 14:20:43
+ * @LastEditTime: 2022-11-08 18:44:35
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/language/zh.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -41,6 +41,16 @@ export default {
 		service: '客服支持',
 		help: '帮助',
 		neighbors: '邻里支持'
+	},
+	login: {
+		loginBtn: '进入爱此迎',
+		signBtn: '立即注册',
+		loginTab: '登录',
+		signTab: '注册',
+		placeMobile: '请输入正确的手机号',
+		placePass: '请输入正确的密码',
+		logout: '退出',
+		loginLost: '您还未登录，请先登录哦~'
 	},
 }
 

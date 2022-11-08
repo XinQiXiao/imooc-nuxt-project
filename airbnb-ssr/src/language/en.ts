@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-26 13:42:36
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-04 14:21:17
+ * @LastEditTime: 2022-11-08 18:44:48
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/language/en.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -41,6 +41,16 @@ export default {
 		service: 'Service',
 		help: 'Help',
 		neighbors: 'Neighbors'
+	},
+	login: {
+		loginBtn: 'Log in Airbnb',
+		signBtn: 'Sign up',
+		loginTab: 'Log in',
+		signTab: 'Sign up',
+		placeMobile: 'Please  write correct mobile number',
+		placePass: 'Please white corret password',
+		logout: 'Logout',
+		loginLost: 'Please login first'
 	},
 }
 

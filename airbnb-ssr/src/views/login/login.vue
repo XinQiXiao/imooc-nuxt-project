@@ -2,13 +2,18 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-08 13:39:01
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-08 15:05:38
+ * @LastEditTime: 2022-11-08 18:52:27
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/views/login/login.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const activeName = ref('login')
+const loginText = ref(t(`login.loginBtn`))
 
 const ruleFormRef = ref()
 
@@ -36,8 +41,10 @@ const rules = reactive({
 })
 
 
-function handleTabClick(event){
-    console.log('handleTabClick event=>', event)
+function handleTabClick(event: any){
+    const { name } = event.props
+    // console.log('handleTabClick name=>', name)
+    loginText.value = t(`login['${name}Btn']`)
 }
 
 function submitForm(){
@@ -58,21 +65,21 @@ function submitForm(){
         <div class="right-part">
             <div class="login-panel">
                 <el-tabs v-model="activeName" @tab-click="handleTabClick">
-                    <el-tab-pane label="登录" name="login"></el-tab-pane>
-                    <el-tab-pane label="注册" name="sign"></el-tab-pane>
+                    <el-tab-pane :label="t('login.loginTab')" name="login"></el-tab-pane>
+                    <el-tab-pane :label="t('login.signTab')" name="sign"></el-tab-pane>
                 </el-tabs>
                 <el-form
                     ref="ruleFormRef" :model="ruleForm" :rules="rules"
                 >
                     <el-form-item prop="mobile">
                         <el-input
-                            placeholder="请输入正确的手机号"
+                            :placeholder="t('login.placeMobile')"
                             v-model="ruleForm.mobile"
                         ></el-input>
                     </el-form-item>
                     <el-form-item prop="password">
                         <el-input
-                            placeholder="请输入正确的密码"
+                            :placeholder="t('login.placePass')"
                             v-model="ruleForm.password"
                         ></el-input>
                     </el-form-item>
@@ -80,7 +87,7 @@ function submitForm(){
                         <el-button 
                             class="login-btn" type="primary"
                             @click="submitForm"
-                        >登录</el-button>
+                        >{{loginText}}</el-button>
                     </el-form-item>
                 </el-form>
             </div>
