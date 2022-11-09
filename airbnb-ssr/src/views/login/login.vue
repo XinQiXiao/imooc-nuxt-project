@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-08 13:39:01
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-08 18:52:27
+ * @LastEditTime: 2022-11-09 13:20:37
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/views/login/login.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -27,14 +27,14 @@ const rules = reactive({
             required: true,
             min: 11,
             max: 11,
-            message: '请输入正确的手机号码',
+            message: t('login.placeMobile'),
             trigger: 'blur'
         }
     ],
     password: [
         {
             required: true,
-            message: '请输入正确的密码',
+            message: t('login.placePass'),
             trigger: 'blur'
         }
     ]
