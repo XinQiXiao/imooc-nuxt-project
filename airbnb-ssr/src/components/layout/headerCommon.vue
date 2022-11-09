@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-03 13:36:11
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-04 15:26:45
+ * @LastEditTime: 2022-11-09 17:19:07
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/components/layout/headerCommon.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -30,6 +30,10 @@ function handleSelect(e: any){
   } else if(e === 'en'){
     emit('changeLang', en)
     saveLanguage(en.name)
+  } else if(e === 'login'){
+    router.push({name: 'login'})
+  } else if(e === 'logout'){
+    
   }
 }
 
@@ -62,7 +66,7 @@ async function getLanguage(){
 }
 
 onMounted(()=>{
-  getLanguage()
+  // getLanguage()
 })
 </script>
 
@@ -88,7 +92,8 @@ onMounted(()=>{
         <el-menu-item index="zh">中文</el-menu-item>
         <el-menu-item index="en">English</el-menu-item>
       </el-sub-menu>
-      <el-menu-item index="logout">{{'退出'}}</el-menu-item>
+      <!-- <el-menu-item index="logout">{{t('login.logout')}}</el-menu-item> -->
+      <el-menu-item index="login">{{ t("login.loginTab") }}/{{ t("login.signTab") }}</el-menu-item>
     </el-menu>
   </div>
 </template>

@@ -1,53 +1,51 @@
-/*
- * @Author: qixin qixin2@delant.com.cn
- * @Date: 2022-10-27 14:11:46
- * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-04 11:06:53
- * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/utils/indexedDB.ts
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
 export default class DB {
   private dbName: string // 数据库名称
   private db: any // 数据库对象
   constructor(dbName: string) {
     this.dbName = dbName
   }
-  
+
   // 打开数据库
-  public openStore(storeName: string, keyPath: string, indexs?: Array<string>) {
-    return new Promise((resolve, reject)=>{
-      const request = window.indexedDB.open(this.dbName, 2)
+  public openStore(stores: any) {
+    const request = window.indexedDB.open(this.dbName, 2)
+    return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        // console.log('数据库打开成功')
+        console.log('数据库打开成功')
         this.db = event.target.result
-        // console.log('openStore onsuccess event=>', event)
-        return resolve(true)
+        console.log(event)
+        resolve(true)
       }
       request.onerror = (event) => {
         console.log('数据库打开失败')
-        console.log('openStore onerror event=>', event)
-        return reject(false)
+        console.log(event)
+        reject(event)
       }
       request.onupgradeneeded = (event) => {
-        // console.log('数据库升级成功')
+        console.log('数据库升级成功')
         const { result }: any = event.target
-        const store = result.createObjectStore(storeName, { autoIncrement: true, keyPath })
-        if (indexs && indexs.length > 0) {
-          indexs.map((v: string) => {
-            store.createIndex(v, v, { unique: false })
-          })
+        for (const storeName in stores) { // 初始化多个ojectStore对象仓库
+          const { keyPath, indexs } = stores[storeName]
+          if (!result.objectStoreNames.contains(storeName)) { // 没有表则新建表
+            // keyPath：主键，主键（key）是默认建立索引的属性； autoIncrement：是否自增；createObjectStore会返回一个对象仓库objectStore(即新建一个表)
+            const store = result.createObjectStore(storeName, { autoIncrement: true, keyPath })
+            if (indexs && indexs.length) {
+              indexs.map((v: string) =>
+                // createIndex可以新建索引，unique字段是否唯一
+                store.createIndex(v, v, { unique: false })
+              )
+            }
+            store.transaction.oncomplete = (e: any) => {
+              console.log('创建对象仓库成功')
+            }
+          }
         }
-        store.transaction.oncomplete = (event: any) => {
-          // console.log('创建对象仓库成功')
-        }
-        // console.log('onupgradeneeded event=>', event)
-        return resolve(true)
       }
     })
   }
 
-  public updateItem(storeName: string, data: any) {
-    // console.log('updateItem db=>', this.db)
+  // 新增/修改数据库数据
+  updateItem(storeName: string, data: any) {
+    console.log(this.db)
     const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
     const request = store.put({
       ...data,
@@ -55,73 +53,69 @@ export default class DB {
     })
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        // console.log('数据写入成功')
-        // console.log('updateItem onsuccess event=>', event)
-        return resolve(event)
+        console.log('数据写入成功')
+        console.log(event)
+        resolve(event)
       }
       request.onerror = (event: any) => {
         console.log('数据写入失败')
-        console.log('updateItem onerror event=>', event)
-        return reject(event)
+        console.log(event)
+        reject(event)
       }
     })
-    
   }
 
-  public deleteItem(storeName: string, key: number | string) {
+  // 删除数据
+  deleteItem(storeName: string, key: number | string) {
     const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
     const request = store.delete(key)
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        // console.log('数据删除成功')
-        // console.log('deleteItem onsuccess event=>', event)
-        return resolve(event)
+        console.log('数据删除成功')
+        console.log(event)
+        resolve(event)
       }
       request.onerror = (event: any) => {
         console.log('数据删除失败')
-        console.log('deleteItem onerror event=>', event)
-        return reject(event)
+        console.log(event)
+        reject(event)
       }
     })
   }
 
-  public getList(storeName: string) {
-    const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
+  // 查询所有数据
+  getList(storeName: string) {
+    const store = this.db.transaction(storeName).objectStore(storeName)
     const request = store.getAll()
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        // console.log('查询所有数据成功')
-        // console.log('getList onsuccess result=>', event.target.result)
-        return resolve(event.target.result)
+        console.log('查询所有数据成功')
+        console.log(event.target.result)
+        resolve(event.target.result)
       }
       request.onerror = (event: any) => {
         console.log('查询所有数据失败')
-        console.log('getList onerror event=>', event)
-        return reject(event)
+        console.log(event)
+        reject(event)
       }
     })
   }
 
-  public getItem(storeName: string, key: number | string) {
-    // console.log('getItem storeName=>', storeName, ' key=>', key)
-    // console.log('getItem db=>', this.db)
-    const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
+  // 查询某一条数据
+  getItem(storeName: string, key: number | string) {
+    const store = this.db.transaction(storeName).objectStore(storeName)
     const request = store.get(key)
     return new Promise((resolve, reject) => {
       request.onsuccess = (event: any) => {
-        // console.log('查询某一条数据成功')
-        // console.log('getItem onsuccess result=>', event.target.result)
-        return resolve(event.target.result)
+        console.log('查询某一条数据成功')
+        console.log(event.target.result)
+        resolve(event.target.result)
       }
       request.onerror = (event: any) => {
         console.log('查询某一条数据失败')
-        console.log('getItem onerror event=>', event)
-        return reject(event)
+        console.log(event)
+        reject(event)
       }
     })
   }
-  
 }
-  
-  
-  
