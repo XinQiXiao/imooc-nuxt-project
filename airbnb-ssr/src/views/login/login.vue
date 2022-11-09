@@ -2,15 +2,18 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-08 13:39:01
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-09 13:20:37
+ * @LastEditTime: 2022-11-09 18:23:25
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/views/login/login.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+
+const router = useRouter()
 
 const activeName = ref('login')
 const loginText = ref(t(`login.loginBtn`))
@@ -18,8 +21,8 @@ const loginText = ref(t(`login.loginBtn`))
 const ruleFormRef = ref()
 
 const ruleForm = reactive({
-    mobile: '',
-    password: ''
+    mobile: '15311112222',
+    password: '1'
 })
 const rules = reactive({
     mobile: [
@@ -50,7 +53,7 @@ function handleTabClick(event: any){
 function submitForm(){
     ruleFormRef.value.validate((valid: any) => {
         if(valid){
-            alert('成功')
+            router.push({name: 'home'})
         } else {
             return false
         }
