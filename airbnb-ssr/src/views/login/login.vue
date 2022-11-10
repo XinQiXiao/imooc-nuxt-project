@@ -2,47 +2,23 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-08 13:39:01
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-09 18:23:25
+ * @LastEditTime: 2022-11-10 15:14:08
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/views/login/login.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import useFormProperties from '@/composables/login/useFormProperties'
+import useFormOperates from '@/composables/login/useFormOperates'
 
 const { t } = useI18n()
 
 const router = useRouter()
 
-const activeName = ref('login')
-const loginText = ref(t(`login.loginBtn`))
-
-const ruleFormRef = ref()
-
-const ruleForm = reactive({
-    mobile: '15311112222',
-    password: '1'
-})
-const rules = reactive({
-    mobile: [
-        {
-            required: true,
-            min: 11,
-            max: 11,
-            message: t('login.placeMobile'),
-            trigger: 'blur'
-        }
-    ],
-    password: [
-        {
-            required: true,
-            message: t('login.placePass'),
-            trigger: 'blur'
-        }
-    ]
-})
-
+const { ruleForm, loginText, ruleFormRef, activeName, rules } = useFormProperties(t)
+const { userSign, userLogin } = useFormOperates(router, ruleForm)
 
 function handleTabClick(event: any){
     const { name } = event.props
@@ -53,7 +29,11 @@ function handleTabClick(event: any){
 function submitForm(){
     ruleFormRef.value.validate((valid: any) => {
         if(valid){
-            router.push({name: 'home'})
+            if(activeName.value == 'sign'){
+                userSign()
+            } else if(activeName.value == 'login'){
+                userLogin()
+            }
         } else {
             return false
         }
