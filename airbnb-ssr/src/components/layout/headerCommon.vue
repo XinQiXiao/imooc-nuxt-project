@@ -2,21 +2,24 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-03 13:36:11
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-09 17:19:07
+ * @LastEditTime: 2022-11-10 15:26:40
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/components/layout/headerCommon.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, getCurrentInstance, } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import en from 'element-plus/lib/locale/lang/en'
 import { fetchLanguageApi, saveLanguageApi, } from '../../api/layout'
+import { userLogoutApi } from '@/api/login'
+import { IResultOr } from '@/api/interface'
 
 const { t, locale: localeLanguage } = useI18n()
 const router = useRouter()
 
+const { proxy }: any = getCurrentInstance()
 const activeIndex = ref('orders')
 
 const emit = defineEmits<{
@@ -33,7 +36,7 @@ function handleSelect(e: any){
   } else if(e === 'login'){
     router.push({name: 'login'})
   } else if(e === 'logout'){
-    
+    userLogout()
   }
 }
 
@@ -68,6 +71,21 @@ async function getLanguage(){
 onMounted(()=>{
   // getLanguage()
 })
+
+const userStatus = localStorage.getItem('userStatus')
+// 登出接口
+function userLogout() {
+  userLogoutApi().then((res: IResultOr) => {
+    const { success, message } = res
+    if (success) {
+      proxy.$message.success(message)
+      router.push({ name: 'login' })
+      localStorage.setItem('userStatus', '0')
+    } else {
+      proxy.$message.error(message)
+    }
+  })
+}
 </script>
 
 <template>
@@ -92,8 +110,8 @@ onMounted(()=>{
         <el-menu-item index="zh">中文</el-menu-item>
         <el-menu-item index="en">English</el-menu-item>
       </el-sub-menu>
-      <!-- <el-menu-item index="logout">{{t('login.logout')}}</el-menu-item> -->
-      <el-menu-item index="login">{{ t("login.loginTab") }}/{{ t("login.signTab") }}</el-menu-item>
+      <el-menu-item v-if="userStatus === '1'" index="logout">{{t('login.logout')}}</el-menu-item>
+      <el-menu-item v-else index="login">{{ t("login.loginTab") }}/{{ t("login.signTab") }}</el-menu-item>
     </el-menu>
   </div>
 </template>
