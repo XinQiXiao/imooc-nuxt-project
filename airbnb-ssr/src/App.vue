@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-17 13:12:51
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-08 13:32:56
+ * @LastEditTime: 2022-11-16 11:58:12
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/App.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,52 +10,27 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
-import { useRouter, useRoute, } from 'vue-router'
-import { ref } from 'vue'
+import { useRoute, } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-// import en from 'element-plus/lib/locale/lang/en'
+import { useStore } from 'vuex'
 import HeaderComponent from './components/layout/headerCommon.vue'
 import FooterComponent from './components/layout/footerCommon.vue'
 
-const router = useRouter()
-// console.log('App.vue router=>', router)
+const store = useStore()
 const route = useRoute()
-// console.log('App.vue route=>', route)
 
 const { locale: localeLanguage } = useI18n()
 localeLanguage.value = 'zh-cn'
-const elementLocale = ref(zhCn)
-
-const { t } = useI18n()
-
-const changeLang = (language: any) => {
-  // console.log('changeLang language=>', language)
-  
-  // console.log('changeLang curLan=>', curLan)
-  // const s = t('message.chinese')
-  // console.log('changeLang s=>', s)
-  elementLocale.value = language
-  // console.log('changeLang elementLocale=>', elementLocale)
-  localeLanguage.value = language.name
-  // console.log('changeLang localeLanguage=>', localeLanguage)
-  // const s = t('message.home')
-  // console.log('s=>', s)
-}
 
 </script>
 
 <template>
-  <el-config-provider :locale="elementLocale">
-    <HeaderComponent v-show="route.fullPath.indexOf('login')==-1" @changeLang="changeLang"/>
+  <el-config-provider :locale="store.state.locale">
+    <HeaderComponent v-show="route.fullPath.indexOf('login')==-1" />
     <div class="container">
       <router-view></router-view>
     </div>
     <FooterComponent v-show="route.fullPath.indexOf('login')==-1"/>
-    <!-- <button @click="changeLang(zhCn)">{{t('message.chinese')}}</button> -->
-    <!-- <button @click="changeLang(en)">{{t('message.english')}}</button> -->
-    <!-- <button @click="()=> {router.push({path: '/home'})}">首页</button>
-    <button @click="()=> {router.push({path: '/mine'})}">个人中心</button> -->
   </el-config-provider>
 </template>
 

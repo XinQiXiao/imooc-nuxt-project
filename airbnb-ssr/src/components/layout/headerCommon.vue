@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-03 13:36:11
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-14 15:33:56
+ * @LastEditTime: 2022-11-16 11:59:19
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/components/layout/headerCommon.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,27 +12,27 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import en from 'element-plus/lib/locale/lang/en'
-import { fetchLanguageApi, saveLanguageApi, } from '../../api/layout'
+import { fetchLanguageApi, } from '../../api/layout'
 import { userLogoutApi } from '@/api/login'
 import { IResultOr } from '@/api/interface'
+import { useStore } from 'vuex'
 
 const { t, locale: localeLanguage } = useI18n()
 const router = useRouter()
-
 const { proxy }: any = getCurrentInstance()
 const activeIndex = ref('orders')
+const store = useStore()
 
 const emit = defineEmits<{
   (e: 'changeLang', language: any): void
 }>()
 function handleSelect(e: any){
-  // console.log('handleSelect e=>', e)
   if(e === 'zh'){
-    emit('changeLang', zhCn)
-    saveLanguage(zhCn.name)
+    store.dispatch('saveLanguage', zhCn)
+    localeLanguage.value = zhCn.name
   } else if(e === 'en'){
-    emit('changeLang', en)
-    saveLanguage(en.name)
+    store.dispatch("saveLanguage", en)
+    localeLanguage.value = en.name
   } else if(e === 'login'){
     router.push({name: 'login'})
   } else if(e === 'logout'){
@@ -40,15 +40,7 @@ function handleSelect(e: any){
   }
 }
 
-// Mock接口：保存当前语言包
-async function saveLanguage(language: any){
-  try {
-    const ret = await saveLanguageApi(language)
-    // console.log('saveLanguage ret=>', ret)
-  } catch (e) {
-    console.log('saveLanguage e=>', e)
-  }
-}
+
 async function getLanguage(){
   try {
     const ret = await fetchLanguageApi()
@@ -72,21 +64,19 @@ onMounted(()=>{
   // getLanguage()
 })
 
-const userStatus = localStorage.getItem('userStatus')
 // 登出接口
 function userLogout() {
   userLogoutApi().then((res: IResultOr) => {
-    console.log('userLogout res=>', res)
     const { success, message } = res
     if (success) {
       proxy.$message.success(message)
       router.push({ name: 'login' })
-      localStorage.setItem('userStatus', '0')
+      store.commit('setUserStatus', 0)
     } else {
       // 错误情况也允许退出
       proxy.$message.error(message)
       router.push({ name: 'login' })
-      localStorage.setItem('userStatus', '0')
+      store.commit('setUserStatus', 0)
     }
   })
 }
@@ -114,7 +104,7 @@ function userLogout() {
         <el-menu-item index="zh">中文</el-menu-item>
         <el-menu-item index="en">English</el-menu-item>
       </el-sub-menu>
-      <el-menu-item v-if="userStatus === '1'" index="logout">{{t('login.logout')}}</el-menu-item>
+      <el-menu-item v-if="store.state.userStatus === 1" index="logout">{{t('login.logout')}}</el-menu-item>
       <el-menu-item v-else index="login">{{ t("login.loginTab") }}/{{ t("login.signTab") }}</el-menu-item>
     </el-menu>
   </div>
