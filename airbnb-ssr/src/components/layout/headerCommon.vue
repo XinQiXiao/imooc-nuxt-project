@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-03 13:36:11
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-16 11:59:19
+ * @LastEditTime: 2022-11-17 18:03:01
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/components/layout/headerCommon.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -15,7 +15,7 @@ import en from 'element-plus/lib/locale/lang/en'
 import { fetchLanguageApi, } from '../../api/layout'
 import { userLogoutApi } from '@/api/login'
 import { IResultOr } from '@/api/interface'
-import { useStore } from 'vuex'
+import { useStore } from '@/store/store'
 
 const { t, locale: localeLanguage } = useI18n()
 const router = useRouter()
