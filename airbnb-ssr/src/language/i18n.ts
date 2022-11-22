@@ -11,7 +11,9 @@ import { createI18n } from 'vue-i18n'
 import zh from './zh'
 import en from './en'
 
+// https://blog.csdn.net/weixin_41086056/article/details/125111752
 const i18n = createI18n({
+  legacy: false,
   locale: 'zh',
   messages: {
     'zh-cn': zh, 
