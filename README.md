@@ -34,9 +34,9 @@
         条件渲染
 
 [视频]
-[资料]（https://www.imooc.com/wiki/SSR/a2.html）
-    code TODO 9-2
-    视频 TODO 9-2
+[资料]（https://www.imooc.com/wiki/SSR/h3.html）
+    code TODO 9-3
+    视频 TODO 9-3
 
     client
     https://git.imooc.com/coding-566/airbnb-ssr/commit/41603e21303346ff239a35984c1246bca6d026a2
