@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-24 16:09:32
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-11-22 18:46:52
+ * @LastEditTime: 2022-12-05 17:08:06
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/router/router.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -43,9 +43,9 @@ const routes = [
     },
 ]
 
-const router = createRouter({
-    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
-    routes,
-})
-
-export default router;
+export function createSSRRouter() {
+    return createRouter({
+        history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
+        routes
+    })
+}

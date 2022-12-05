@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-25 13:15:49
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-10-31 16:28:53
+ * @LastEditTime: 2022-12-05 16:56:53
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/api/api.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -26,9 +26,14 @@ async function fetchElephant() {
   return result
 }
 
+// 真实接口
+function fetchRoomList(): Promise<IResult> {
+  return http.httpGet('http://110.42.184.111/api/room/room/getRoomList?pageNo=1&pageSize=3', {})
+}
 
 
 export {
   fetchDemo,
   fetchElephant,
+  fetchRoomList,
 }
