@@ -2,7 +2,7 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-11-16 11:37:32
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-12-05 17:02:34
+ * @LastEditTime: 2022-12-05 18:36:24
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/store/store.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -49,6 +49,7 @@ export function createSSRStore() {
       },
       setRoomList(state, payload) { // 设置房屋列表数据
         state.roomList = payload
+        console.log('setRoomList state=>', state)
         return state.roomList
       }
     },
@@ -69,6 +70,7 @@ export function createSSRStore() {
       },
       getRoomList({ commit }) {
         fetchRoomList().then(res => {
+          console.log('getRoomList fetchRoomList res=>', res)
           const { success, result } = res
           const orders = result.orders
           if (success) {

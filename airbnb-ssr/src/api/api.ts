@@ -2,12 +2,13 @@
  * @Author: qixin qixin2@delant.com.cn
  * @Date: 2022-10-25 13:15:49
  * @LastEditors: qixin qixin2@delant.com.cn
- * @LastEditTime: 2022-12-05 16:56:53
+ * @LastEditTime: 2022-12-05 18:39:03
  * @FilePath: /imooc-nuxt-project/airbnb-ssr/src/api/api.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { http } from '../utils/http';
 import AirbnbDB from '../utils/indexedDB'
+import { IResultOr as IResult } from './interface'
 
 const airbnbDB = new AirbnbDB('airbnb')
 
